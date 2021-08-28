@@ -24,7 +24,6 @@ $(function () {
             shape: 'circle',
             name: {
                 formatter: '{value}',
-                fontSize: 16,
                 textStyle: {
                     color: '#428BD4'
                 }
@@ -140,14 +139,17 @@ $(function () {
 
 
     function setChartSize(innerWidth) {
-        if (1200 < innerWidth && innerWidth <= 1470) {
-            personalTraitsChart.setOption({ radar: [{ radius: 70 }] });
+        if ( innerWidth <= 480){
+            personalTraitsChart.setOption({ radar: [{ radius: 70, name:{fontSize: 13} }] });
+            abilityChart.setOption({ grid: { left: '30%' }});
+        } else if (1200 < innerWidth && innerWidth <= 1470) {
+            personalTraitsChart.setOption({ radar: [{ radius: 70, name:{fontSize: 16} }] });
             abilityChart.setOption({ grid: { left: '30%' } });
         } else if (1470 < innerWidth && innerWidth <= 1600) {
-            personalTraitsChart.setOption({ radar: [{ radius: 100 }] });
+            personalTraitsChart.setOption({ radar: [{ radius: 100, name:{fontSize: 16} }] });
             abilityChart.setOption({ grid: { left: '20%' } });
         } else {
-            personalTraitsChart.setOption({ radar: [{ radius: 130 }] });
+            personalTraitsChart.setOption({ radar: [{ radius: 130, name:{fontSize: 16} }] });
             abilityChart.setOption({ grid: { left: '15%' } });
         }
     }
