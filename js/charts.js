@@ -7,27 +7,23 @@ $(function () {
 
     var personalOption = {
         color: ['#FFE434'],
-        // title: {
-        //     text: '劉育辰_人格特質'
-        // },
-        // legend: {
-        //     data: ['Data B']
-        // },
+        tooltip: {
+            trigger: 'axis'
+        },
         radar: [{
             indicator: [
                 { text: '經驗開放性', max: 5 },
                 { text: '盡責性', max: 5 },
+                { text: '情緒不穩定性', max: 5 },
                 { text: '外向性', max: 5 },
                 { text: '親和性', max: 5 },
-                { text: '情緒不穩定性', max: 5 }
             ],
             center: ['50%', '50%'],
-            radius: 130,
-            startAngle: 126,
+            startAngle: 108,
             splitNumber: 5,
             shape: 'circle',
             name: {
-                formatter: '【{value}】',
+                formatter: '{value}',
                 fontSize: 16,
                 textStyle: {
                     color: '#428BD4'
@@ -54,6 +50,9 @@ $(function () {
         series: [{
             name: '人格特質',
             type: 'radar',
+            tooltip: {
+                trigger: 'item'
+            },
             emphasis: {
                 lineStyle: {
                     width: 4
@@ -61,8 +60,8 @@ $(function () {
             },
             data: [
                 {
-                    value: [5, 4, 3, 3.5, 1.5],
-                    name: 'Data B',
+                    value: [5, 4, 1.5, 3, 3.5],
+                    name: '人格特質',
                     areaStyle: {
                         color: 'rgba(255, 228, 52, 0.6)'
                     }
@@ -82,8 +81,8 @@ $(function () {
             type: 'value',
             max: 5
         },
-        grid: {
-            left: '15%'
+        tooltip: {
+            trigger: 'axis'
         },
         series: [{
             data: [{
@@ -125,15 +124,32 @@ $(function () {
         }]
     };
 
+    setChartSize(window.innerWidth);
     personalTraitsChart.setOption(personalOption);
     abilityChart.setOption(abilityOption);
 
     setTimeout(function () {
         window.onresize = function () {
+            var innerWidth = window.innerWidth;
+            setChartSize(innerWidth);
             personalTraitsChart.resize();
             abilityChart.resize();
 
         }
     }, 200)
+
+
+    function setChartSize(innerWidth) {
+        if (1200 < innerWidth && innerWidth <= 1470) {
+            personalTraitsChart.setOption({ radar: [{ radius: 70 }] });
+            abilityChart.setOption({ grid: { left: '30%' } });
+        } else if (1470 < innerWidth && innerWidth <= 1600) {
+            personalTraitsChart.setOption({ radar: [{ radius: 100 }] });
+            abilityChart.setOption({ grid: { left: '20%' } });
+        } else {
+            personalTraitsChart.setOption({ radar: [{ radius: 130 }] });
+            abilityChart.setOption({ grid: { left: '15%' } });
+        }
+    }
 
 });
